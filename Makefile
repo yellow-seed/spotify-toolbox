@@ -1,4 +1,4 @@
-.PHONY: build test clean run install fmt vet lint help
+.PHONY: build test clean run install fmt vet lint help check ci test-race
 
 # Binary name
 BINARY_NAME=spotify-toolbox
@@ -75,6 +75,19 @@ lint:
 
 ## dev: Install dependencies and build
 dev: install build
+
+## test-race: Run tests with race detector
+test-race:
+	@echo "Running tests with race detector..."
+	@go test -v -race ./...
+
+## check: Run all checks (fmt, vet, lint, test)
+check: fmt vet lint test
+	@echo "All checks passed!"
+
+## ci: Run CI checks (used in GitHub Actions)
+ci: check build
+	@echo "CI checks complete!"
 
 ## all: Run fmt, vet, test, and build
 all: fmt vet test build
