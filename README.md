@@ -1,74 +1,153 @@
-# Template Repository
+# Spotify Toolbox
 
-汎用的な開発プロジェクト用のテンプレートリポジトリです。
+A CLI tool for managing Spotify podcasts in bulk, built with Go and Cobra framework.
 
-## 概要
+## Features
 
-このリポジトリは、新しいプロジェクトを開始する際に必要な基本的な設定ファイルとテンプレートを含んでいます。
+- List all podcasts in your Spotify library
+- Delete podcasts in bulk with filters
+- Dry-run mode to preview changes before applying
 
-## 含まれる内容
+## Prerequisites
 
-### GitHub Actions ワークフロー
+- Go 1.21 or higher
+- Spotify Developer Account
+- Spotify Client ID and Client Secret
 
-- `dependabot.yml` - Dependabotの自動マージ設定
-- `custom_setup.yml` - カスタムセットアップワークフロー
-- `ci.yml` - 複数言語対応のCIワークフロー
+## Setup
 
-### Issue/PR テンプレート
+### 1. Get Spotify API Credentials
 
-- `bug_report.yml` - バグレポートテンプレート
-- `feature_request.yml` - 機能リクエストテンプレート
-- `PULL_REQUEST_TEMPLATE.md` - プルリクエストテンプレート
+1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
+2. Create a new application
+3. Copy your Client ID and Client Secret
 
-### ドキュメント
+### 2. Configure Environment Variables
 
-- `AGENTS.md` - AIエージェント向けのドキュメント
-- `CLAUDE.md` - Claude向けの設定/ドキュメント
-- `CONTRIBUTING.md` - コントリビューションガイドライン
-- `LICENSE` - ライセンスファイル（MIT）
-- `.github/SECURITY.md` - セキュリティポリシー
-- `LANGUAGE_SETUP.md` - 各言語の基本構成ガイド
-
-### 設定ファイル
-
-- `.gitignore` - 複数言語対応の.gitignore（Ruby, Python, JavaScript/TypeScript, Go）
-- `.editorconfig` - エディタ設定の統一
-- `.github/CODEOWNERS` - コードオーナー設定
-
-### GitHub Ruleset とブランチ保護設定
-
-- `.github/rulesets/` - Ruleset の JSON テンプレート
-  - `branch-protection-ruleset.json` - メインブランチ用の保護ルール
-  - `feature-branch-ruleset.json` - フィーチャーブランチ用のルール
-- `.github/scripts/` - セットアップスクリプト
-  - `setup-rulesets.sh` - Ruleset を適用するスクリプト
-  - `setup-branch-auto-delete.sh` - ブランチ自動削除を有効にするスクリプト
-  - `setup-all.sh` - すべての設定を一括で適用するスクリプト
-
-詳細は [GITHUB_RULESET_SETUP.md](docs/GITHUB_RULESET_SETUP.md) を参照してください。
-
-## 使用方法
-
-1. このリポジトリをテンプレートとして使用するか、クローンしてください
-2. プロジェクトに合わせて各ファイルをカスタマイズしてください
-3. 必要に応じて言語別の設定ファイルを追加してください
-4. GitHub Ruleset とブランチ保護設定を適用してください（オプション）
-
-### GitHub Ruleset のセットアップ（オプション）
-
-ブランチ保護や自動削除設定を適用する場合：
+Copy the example environment file and fill in your credentials:
 
 ```bash
-# すべての設定を一括で適用
-chmod +x .github/scripts/setup-all.sh
-./.github/scripts/setup-all.sh
-
-# または個別に適用
-chmod +x .github/scripts/setup-rulesets.sh
-./.github/scripts/setup-rulesets.sh
-
-chmod +x .github/scripts/setup-branch-auto-delete.sh
-./.github/scripts/setup-branch-auto-delete.sh
+cp .env.example .env
 ```
 
-詳細は [GITHUB_RULESET_SETUP.md](docs/GITHUB_RULESET_SETUP.md) を参照してください。
+Edit `.env` and add your Spotify credentials:
+
+```env
+SPOTIFY_CLIENT_ID=your_actual_client_id
+SPOTIFY_CLIENT_SECRET=your_actual_client_secret
+```
+
+Alternatively, you can create a config file at `~/.spotify-toolbox.yaml`:
+
+```yaml
+client_id: your_actual_client_id
+client_secret: your_actual_client_secret
+```
+
+### 3. Build the Application
+
+```bash
+make build
+```
+
+Or manually:
+
+```bash
+go build -o bin/spotify-toolbox ./cmd/spotify-toolbox
+```
+
+## Usage
+
+### List all podcasts
+
+```bash
+./bin/spotify-toolbox list
+```
+
+With options:
+
+```bash
+# Output as JSON
+./bin/spotify-toolbox list --format json
+
+# Limit number of results
+./bin/spotify-toolbox list --limit 100
+```
+
+### Delete podcasts
+
+```bash
+# Delete all podcasts (with confirmation)
+./bin/spotify-toolbox delete --all
+
+# Delete with filter
+./bin/spotify-toolbox delete --filter "podcast-name-pattern"
+
+# Dry run to see what would be deleted
+./bin/spotify-toolbox delete --all --dry-run
+```
+
+### Using flags for credentials
+
+Instead of environment variables or config file, you can pass credentials as flags:
+
+```bash
+./bin/spotify-toolbox --client-id YOUR_ID --client-secret YOUR_SECRET list
+```
+
+## Development
+
+### Install dependencies
+
+```bash
+go mod download
+```
+
+### Run tests
+
+```bash
+make test
+```
+
+### Build
+
+```bash
+make build
+```
+
+### Clean build artifacts
+
+```bash
+make clean
+```
+
+## Project Structure
+
+```text
+spotify-toolbox/
+├── cmd/
+│   └── spotify-toolbox/    # Application entry point
+│       └── main.go
+├── internal/
+│   ├── cmd/                # Cobra commands
+│   │   ├── root.go
+│   │   ├── list.go
+│   │   └── delete.go
+│   ├── spotify/            # Spotify API client
+│   └── config/             # Configuration management
+├── pkg/
+│   └── logger/             # Logging utilities
+├── .env.example            # Environment variables template
+├── go.mod
+├── go.sum
+├── Makefile
+└── README.md
+```
+
+## License
+
+MIT
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
