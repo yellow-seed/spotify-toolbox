@@ -31,8 +31,14 @@ func init() {
 	rootCmd.PersistentFlags().String("client-id", "", "Spotify Client ID")
 	rootCmd.PersistentFlags().String("client-secret", "", "Spotify Client Secret")
 
-	viper.BindPFlag("client_id", rootCmd.PersistentFlags().Lookup("client-id"))
-	viper.BindPFlag("client_secret", rootCmd.PersistentFlags().Lookup("client-secret"))
+	if err := viper.BindPFlag("client_id", rootCmd.PersistentFlags().Lookup("client-id")); err != nil {
+		fmt.Fprintf(os.Stderr, "Error binding client-id flag: %v\n", err)
+		os.Exit(1)
+	}
+	if err := viper.BindPFlag("client_secret", rootCmd.PersistentFlags().Lookup("client-secret")); err != nil {
+		fmt.Fprintf(os.Stderr, "Error binding client-secret flag: %v\n", err)
+		os.Exit(1)
+	}
 }
 
 func initConfig() {
