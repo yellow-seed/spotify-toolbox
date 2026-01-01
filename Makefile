@@ -50,7 +50,6 @@ run: build
 ## install: Install dependencies
 install:
 	@echo "Installing dependencies..."
-	@go mod download
 	@go mod tidy
 	@echo "Dependencies installed"
 

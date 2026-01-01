@@ -100,7 +100,7 @@ Instead of environment variables or config file, you can pass credentials as fla
 ### Install dependencies
 
 ```bash
-go mod download
+go mod tidy
 ```
 
 ### Run tests

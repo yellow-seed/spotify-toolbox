@@ -71,7 +71,7 @@ spotify-toolbox/
    ```bash
    make install
    # または
-   go mod download
+   go mod tidy
    ```
 
 1. 環境変数の設定
