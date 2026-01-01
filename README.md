@@ -10,7 +10,6 @@ A CLI tool for managing Spotify podcasts in bulk, built with Go and Cobra framew
 
 ## Prerequisites
 
-- Go 1.21 or higher
 - Spotify Developer Account
 - Spotify Client ID and Client Secret
 
@@ -100,7 +99,7 @@ Instead of environment variables or config file, you can pass credentials as fla
 ### Install dependencies
 
 ```bash
-go mod download
+go mod tidy
 ```
 
 ### Run tests

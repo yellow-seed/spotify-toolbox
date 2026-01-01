@@ -1,4 +1,4 @@
-.PHONY: build test clean run install fmt vet lint help check ci test-race
+.PHONY: build test test-coverage clean run install fmt vet lint help dev all check ci test-race
 
 # Binary name
 BINARY_NAME=spotify-toolbox
@@ -50,7 +50,6 @@ run: build
 ## install: Install dependencies
 install:
 	@echo "Installing dependencies..."
-	@go mod download
 	@go mod tidy
 	@echo "Dependencies installed"
 
