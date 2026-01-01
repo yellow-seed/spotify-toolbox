@@ -1,4 +1,4 @@
-.PHONY: build test clean run install fmt vet lint help
+.PHONY: build test test-coverage clean run install fmt vet lint help dev all
 
 # Binary name
 BINARY_NAME=spotify-toolbox
