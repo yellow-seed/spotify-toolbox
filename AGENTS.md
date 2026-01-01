@@ -55,7 +55,7 @@ spotify-toolbox/
 
 ### 必要な環境
 
-- Go 1.25以上
+- Go 最新バージョンに追随
 - Make（オプションだが推奨）
 - Spotify Developer アカウント
 
@@ -236,7 +236,7 @@ make build
 GitHub Actionsで以下のチェックを実行:
 
 - **actionlint**: GitHub Actionsワークフローの検証
-- **go-test**: Go 1.23, 1.24, 1.25でのテスト実行（レースディテクタ付き）
+- **go-test**: ユニットテストの実行
 - **go-lint**: golangci-lintによるコード品質チェック
 - **go-build**: ビルドの成功確認
 
