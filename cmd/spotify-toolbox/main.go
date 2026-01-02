@@ -1,3 +1,4 @@
+// Package main is the entrypoint for the spotify-toolbox CLI.
 package main
 
 import (

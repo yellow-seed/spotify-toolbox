@@ -1,3 +1,4 @@
+// Package cmd holds the CLI command definitions for spotify-toolbox.
 package cmd
 
 import (
