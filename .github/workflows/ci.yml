@@ -40,7 +40,7 @@ jobs:
         run: go mod verify
 
       - name: Run tests
-        run: go test -coverprofile=coverage.txt
+        run: go test ./... -covermode=atomic -coverprofile=coverage.txt
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
