@@ -1,8 +1,6 @@
 name: Actionlint
 
 on:
-  push:
-    branches: [ main, feat/*, copilot/* ]
   pull_request:
     branches: [ main, feat/*, copilot/* ]
 
