@@ -22,7 +22,6 @@ linters:
     - unconvert
     - unparam
     - prealloc
-    - exportloopref
     - nolintlint
 
 linters-settings:
