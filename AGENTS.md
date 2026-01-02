@@ -14,7 +14,7 @@ Spotify Toolbox は、Spotifyのポッドキャストを一括管理するため
 
 ## 技術スタック
 
-- **言語**: Go 1.21以上
+- **言語**: Go 1.25以上
 - **CLIフレームワーク**: [Cobra](https://github.com/spf13/cobra) v1.10.2
 - **設定管理**: [Viper](https://github.com/spf13/viper) v1.21.0
 - **ビルドツール**: Make
@@ -55,7 +55,7 @@ spotify-toolbox/
 
 ### 必要な環境
 
-- Go 1.21以上
+- Go 最新バージョンに追随
 - Make（オプションだが推奨）
 - Spotify Developer アカウント
 
@@ -236,7 +236,7 @@ make build
 GitHub Actionsで以下のチェックを実行:
 
 - **actionlint**: GitHub Actionsワークフローの検証
-- **go-test**: Go 1.21, 1.22, 1.23でのテスト実行（レースディテクタ付き）
+- **go-test**: ユニットテストの実行
 - **go-lint**: golangci-lintによるコード品質チェック
 - **go-build**: ビルドの成功確認
 
