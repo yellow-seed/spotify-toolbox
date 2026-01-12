@@ -105,7 +105,30 @@ go mod tidy
 ### Run tests
 
 ```bash
+# Run all tests
 make test
+
+# Run tests with race detector
+make test-race
+
+# Run tests with coverage
+make test-coverage
+```
+
+### Code Quality
+
+```bash
+# Format code
+make fmt
+
+# Run static analysis
+make vet
+
+# Run linter (requires golangci-lint)
+make lint
+
+# Run all checks
+make check
 ```
 
 ### Build

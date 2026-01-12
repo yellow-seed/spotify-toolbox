@@ -14,10 +14,12 @@ Spotify Toolbox は、Spotifyのポッドキャストを一括管理するため
 
 ## 技術スタック
 
-- **言語**: Go 1.21以上
+- **言語**: Go 1.25以上
 - **CLIフレームワーク**: [Cobra](https://github.com/spf13/cobra) v1.10.2
 - **設定管理**: [Viper](https://github.com/spf13/viper) v1.21.0
 - **ビルドツール**: Make
+- **リンター**: golangci-lint
+- **CI/CD**: GitHub Actions
 
 ## ディレクトリ構造
 
@@ -53,7 +55,7 @@ spotify-toolbox/
 
 ### 必要な環境
 
-- Go 1.21以上
+- Go 最新バージョンに追随
 - Make（オプションだが推奨）
 - Spotify Developer アカウント
 
@@ -101,6 +103,7 @@ spotify-toolbox/
 
 - `gofmt`による自動フォーマット（`make fmt`で実行）
 - `go vet`による静的解析（`make vet`で実行）
+- `golangci-lint`による包括的なコード品質チェック（`make lint`で実行）
 - [Effective Go](https://go.dev/doc/effective_go)のベストプラクティスに従う
 
 ### プロジェクト固有規約
@@ -178,8 +181,14 @@ This fix ensures all resources are cleaned up correctly.
 # 全テスト実行
 make test
 
+# レースディテクタ付きテスト
+make test-race
+
 # カバレッジ付きテスト
 make test-coverage
+
+# 全チェック（fmt, vet, lint, test）
+make check
 ```
 
 ### テスト方針
@@ -188,6 +197,7 @@ make test-coverage
 - テーブル駆動テストを推奨
 - モックが必要な場合はインターフェースを定義
 - カバレッジ目標: 80%以上（今後設定予定）
+- CI/CDでレースディテクタを使用してデータ競合を検出
 
 ## デプロイメント
 
@@ -221,11 +231,22 @@ make build
 2. 環境変数（`SPOTIFY_`プレフィックス）
 3. 設定ファイル（`~/.spotify-toolbox.yaml` または `--config`で指定）
 
+### CI/CD
+
+GitHub Actionsで以下のチェックを実行:
+
+- **actionlint**: GitHub Actionsワークフローの検証
+- **go-test**: ユニットテストの実行
+- **go-lint**: golangci-lintによるコード品質チェック
+- **go-build**: ビルドの成功確認
+
+コードカバレッジはCodecovにアップロードされます（オプション）。
+
 ### 今後の実装予定
 
 - Spotify Web API統合
 - OAuth 2.0認証フロー
 - ポッドキャスト一覧取得・削除機能の実装
-- ユニットテストの追加
-- CI/CDパイプラインの構築
+- 統合テストの追加
+- リリース自動化（GoReleaser）
 
